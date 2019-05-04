@@ -1,0 +1,990 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     45311,        982]
+NotebookOptionsPosition[     43727,        954]
+NotebookOutlinePosition[     44114,        971]
+CellTagsIndexPosition[     44071,        968]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+The candidate locus on chromosome 5 shows strong changes in SNP frequency in \
+both LS1 and LS2.  Here, we estimate the strength of selection on this locus, \
+and the corresponding effect on the selected trait.  We approximate by \
+assuming two alternative alleles, and find the selection coefficient implied \
+the observed parallel changes in allele frequency; we then set bounds on this \
+estimate that take account of  random drift.  FInally, we use simulations \
+that condition on the known pedigree to estimate the effect on the trait \
+required to cause the observed strong frequency changes; these show that \
+linked selection has little effect on the single-locus estimates.\
+\>", "Text",
+ CellChangeTimes->{{3.740648198265897*^9, 3.7406482030569057`*^9}, {
+  3.7406482420572*^9, 3.740648249391674*^9}, {3.740649497012598*^9, 
+  3.7406497457725687`*^9}, {3.740649787067361*^9, 
+  3.740649986765965*^9}},ExpressionUUID->"69e0cd4d-9ecf-4787-8048-\
+08f651667101"],
+
+Cell[TextData[{
+ "We see strong and parallel changes in allele frequency at multiple steps. \
+There are 14 non-overlapping 10kb windows that have a mean square change in \
+arc-sin transformed allele frequency of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox[
+     SuperscriptBox["\[CapitalDelta]z", "2"], "_"], ">", "2"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "17825d9f-4425-421f-a3f5-b464e28b6c9a"],
+ " in both LS1 and LS2, spanning a 260kb region and including 807 SNP.  SNP \
+frequencies are tightly clustered (Fig. Sx), corresponding to two alternative \
+haplotypes (Fig. xx).  The initial (untransformed) allele frequencies average \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "0"], "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "94e2ba6a-266c-45c7-ab6c-0a76b34af00c"],
+ "0.825, 0.830 in LS1, LS2, respectively, and the final frequencies average \
+0.165, 0.020, respectively.  These frequencies depend on the arbitrary \
+threshold for which windows to include. However, this makes little \
+difference, relative to the wide bounds on our estimates.  "
+}], "Text",
+ CellChangeTimes->{{3.740649998829509*^9, 3.7406501285609007`*^9}, {
+  3.740650430351954*^9, 3.740650738808291*^9}, {3.740657292642116*^9, 
+  3.740657296442802*^9}},ExpressionUUID->"e5f16101-b6af-4232-a603-\
+941be37ed8f1"],
+
+Cell[TextData[{
+ "Figure Sx.  Initial and final arc-sin transformed allele frequencies, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["z", "0"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "84e9d7dd-335c-484c-b758-115dd6fa3c7c"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["z", "17"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "e634c0db-ddb7-4caa-a5d9-7df30171ddaa"],
+ ",  for the 807 SNP that lie in windows with  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox[
+     SuperscriptBox["\[CapitalDelta]z", "2"], "_"], ">", "2"}], 
+   TraditionalForm]],ExpressionUUID->"a133791f-84cc-4d23-9e22-4a4744079cd5"],
+ " (blue: LS1; red: LS2)."
+}], "Text",
+ CellChangeTimes->{{3.7406502340142727`*^9, 3.7406503269149637`*^9}, {
+  3.740650380754486*^9, 3.7406504210961847`*^9}},
+ FontSize->14,ExpressionUUID->"f6e8589a-c13e-4e4d-99d7-01991cd097f7"],
+
+Cell[BoxData[
+ GraphicsBox[{{{}, {{}, 
+     {RGBColor[0, 0, 1], PointSize[0.01], AbsoluteThickness[1.6], 
+      PointBox[CompressedData["
+1:eJy1mk2IVmUUx9+ZcSBqSCisCExNLCFaBTa7d6DAQmgxKlHuzGoTZUwfTNRA
+HyC0iDCYahNkFAhBRrVoEwlBRBSZLRJCBjU0R8myIJEiwvd/h36XH+e+RrMZ
+/jz3vfc5z/n6n3OeNdsfmb5/tNfr3TjW6/3z/4GZmyen9/emdqz/8rXRG37u
+f//B+4+9dHhk6trH/3ji1lOn+8c2TF/y0NNLePaujXOTq8YUH35ny4n75sem
+rn/x4w137j3V4K2H9u9+a/XxBu89vrj2qd0/9mfv2bLww55lU+vmN+08sG2x
+P75x5bs7p8YbfPcd61bMnBtv3n/Lqn33Ln9vtFlffP7TyWdXjjTfq/DvY6+e
+f+720QZn/5E/+7twLmf65+b2ffjKVcta8vG8Il/293/h7Pfg2YnpR08ebeE8
+Hxx583vKn+eJqX/K+8zlT569evRkC+f5g9u/OP3b6yea88/3ibOfPJ/3Rb95
+X/YXe9jx3YFr5s7/WuJ8L++jvGYvkSf+kfPIOjGfz/diL8HRV56n/Fxv9DtY
+N/3wvILz/ugv7/tq12Vf/3ST2zf9l/vnefL7Fj+C4/+NvcB+zV9pz9kP7Sv7
+iT1t++jl9W9v/qUlP+ULzn6pn+Ds3/w1z5v/5PvV72NPsQezV+o76/TH6LvS
+J/XDdTsf/t7ySeKrxeMq39A/TB5i26+dN/05mPZo/lxh5g/i6DfnaTj+o/6F
+eEz5TP752868Ofvg0npw9kfM+M38wO/TvvI87YHxoeEPg3Xqg3wh/kb7yffM
+fulv3F8w7d30S/7A/Wc9v69wZe/xd4vnrfgOPsb9RR7Gs2DG+8Y+YX+Mj8S0
+f9MXz9f4Du2v8k/6c3Dsg9jiCfOj8S3jX8zf9n1i+57FW64zXhq27xk2e73Y
+8zU+fsHfFxo8sfroC5vWHFnS9yCemP9aPGa+Hjbem33RXyv/pb0wnpAf8XuU
+L/IzHlh8pv8xf+R9lm/N/si/TB+WP4blA4w/lXymz4qvRh6rJ7rWr8xPVh9W
+9WPOj/U44y39l/qo6tEqftHeWP8H5/fE1F8Vv5mfrJ9g+aNrPdLV36t4Z/yZ
+8YHr5P+09xa/G+hrZvPWb/cs7zXxk/Iyf1Je7jfvz/eJyad4HsZfK/5Avmr1
+c5VfeL5V/DF9Uh+MZ8lPVX/F7If66BovqnXyTda/xJbPqe+KX7C+43kZ/2O9
+SH/g72kftj/yC/o/z4f+xv3THrg/q4+t/jD/sfM0e7f+G/MX46X166r9mv7N
+vtgvYr1rfIHyWT1h9QP9g/bO58nfK/mN7xv/svhg9SztY1g+bvyG/JSY7zd7
+YP8x50n5yReqeFjlU2Lyrao+NftlfWL9I5uv0H/pD1U/2/yD+Y/xsrEf1EfB
+0W/2F2z9Res3VPmK8pE/Bpv/ML/zeeuXVu/T8xL7IDa+ZPzP+nnhC0cePjZy
+5dq/+te9ccXEJ5d+o+eVfGL8yvKz5YOqPuT58vxo/1X9P2y/pSs/rPilYfZP
+yaetP2/zCfKRqt4wXOmPuMoHw/pj1V/s2v+u6nHKk/5uNX8yPt3V/7vi7KfK
+7zkfzqOImR+Dq/zLeF3ph/E5v49+ghN/OG82fmT5hP1mk5fy0F4ZXyzfsv9i
+8x3D1bytK048zvuj7/h/1g1bPU1c7Z+Y8bnic1U/m/zK6u9qnt2yN9in9WOs
+n17VCybPsPwr51/dd7D5oc3X837rV5Ev0v8rf6jqN8ZT1is2DyL/Ibb4Y7ia
+59l9iKpfU/UPq3k8z8figdmX5aeqXq/0RXuq6tOufK+qR7ve10r8iv0Qpz9J
+nPhJnN/TvrPO+2/GF6p+SxXfWH90nRe06vNBvrT6nPizQ5+v2DX3Z783+Mv5
+MD4xvlJem4exPqnim8U7u59m9Vp1/5DY+GzVT6zmHVW/jPhi9U++aP5MzHhv
++6nq52p+zPyi9xVgvxXft/6zYcZvyw9d59t2H4XxgXy9um9R9S9afBz82vKX
+xXPyHfaDGJ8z//l3vFxozXetH/ufsdw3qu5L8Hyr+oHY4nd1H8z63+QD1f0L
+65daf5bzKev32/1uwxXfs/6X9Y+reGJ8yub7FV8yvs338f5bdd/R+CTndzbf
+sfmwxV/jd9V9J/qL3Vev3te1vmv133kfvejXWX+7mufb/ZEKGz+zetHmr9V+
+O/cXcV/C5rE236n6Jzbvruob4qp+4nkz/vwN9L8vpw==
+       
+       "]]}, {}}, {}, {}, {}, {}}, {{}, {{}, 
+     {RGBColor[1, 0, 0], PointSize[0.01], AbsoluteThickness[1.6], 
+      PointBox[CompressedData["
+1:eJzFWjFoFFEQ3ctdChWuEEEFQQKKTVLYxFTeFakiKB6xUTiiQcwhImiaCFZi
+oVGLmN5GO1GLRAshjUQ7iaBYBMVoCoMWirHxIhHBSeAtjzezu6qNPP5ld/78
+mTfvz2zXibONkx1JkuwpJ8nv/9v7dt3sWe2ov3zf271jfq42dPnC6a0r5Xry
+5994c+PtkWvr661nT0oHGqV639joveGPr1N4eWCg+vVLsobnN52bbexc//tL
+99vN6liZ4tpka+DMeCWF8X223j/zaWLhIcdov2F7nu0f7TVsz2MY7cH9Kszs
+Y/biOj4P94/2zT5dnqz2JnQd8fbK7s+DE0lq/xYf9n7DuG7xgBj99+rtu6W9
+zTcp/+N+t/X0D7a7NtRHbz0fKX9flJjFH4tP5U+0x/bDsP0e84n5i/0e7WPx
+p/JD/b3lg71fYfMnYuYvfL83364OL05NlRaofYw/2P6ZPcZ/LP9wHZ+v9q/4
+lK2r/GT2oj3mL/Mniz+sB1n5CfnV1r892DJ9fvOHVH4wvjCM+1X1CONJ8S/u
+V2F1PopfovnKsPd9zJ/ob1Yv7rQvVm48Wq0xjOfDsOI39AfmO9ZvjDfmP6YX
+kI/xfLA+GWb8b+/D+qn2WzTO+z70D9ZPxi+KL1g9iZ630o9Hpg8fPNbdSe2L
+YtTHrP4xbPYw/GLux/6+pfQ625/S04yPVbyw/FTPU+t5sdfeqH736inMd/X7
+KEb78bxx/5gfjM+Mrxj26h8vZv5S54H1gekHW8d8NIz+Y7goPlX12fyt9DTe
+p7Be4zq+j/Ez42ull5keRftYPLP6wOKH8T3bD/KD6geoeqX6Ffg8Zq+dt/c8
+2H7YeRtG+/B8lD+Q/0zvsXxi/Mzqhcofpdei8cH4k9UHVT8RK/2u7Fd8geeB
++hHX2fNwvxgvDHv1mLf+s/tH1voS7c8pf6v6hf5W9VbFI7ufKn3srZ+sn+mt
+P1j/Gb949QvaY/oW64+9X2GmX6L3aaWnFF+hv7z+Q6z6Cyo/o/25vPkd7W+y
+fifmB9OnSu8iVv5U95lov8b8y/rXiK2+RvtVLB9U/kb79agfmN5jGH+v+Fud
+T975SfT+qPLb7uNe/eHVr6p/yuJ/6Mr11szRlZrZx+7//+p+G+2HMz5hOMrn
+Sv8qe9V9IW+/iOnnrDjaj4rWJ4xfjC/V/8T1qD5Wejk6ry1qfuvVr3nnzdF4
+jcbD3+7vsfkJ1kdbx/lB9P7A6ndWPmTzJ2+8qHn4/8bR+be6b6p11v+KxhOz
+n807WT6xesaer/iQYewPoT/UfYrpAVZf0f8s/oueH2H+YD1U+lTFk/KHmh8p
+PaD613j+GI/e75u8+kfxn+oPYb6zeQHrt6t+pMLqvL1/7z2/ouapRe0/6zxI
+8Z/xCeJDj493nrr7c+1+oO5r0e9XFF+w+DKM/O+tp1n7hZZv5h+lp6P9lKLn
+naiXov1X1b9RelzNP6J6kPUT2Xmpeqi+F1T1Qd132PwV44X1qxifsv6Oqn/e
+78kYP7B6xd7P+Jfpp7wY94PzYPa9EvOPmuep+U60HqjvO/P2r9T3dVn1kBez
++afXXpZv5h82b8Hnq3hkfKD0cXS/jH/Y9xWq34rzY9ST3v6b2r/qT6B93vuu
+6m8wfmd8XPQ80Pu9Kos37zyF6XHVr1L9ZO99PKrPovns7bfg+34BOTyMrg==
+
+       "]]}, {}}, {}, {}, {}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox[
+    "\"\\!\\(\\*SubscriptBox[\\(z\\), \\(0\\)]\\)\"", TraditionalForm], 
+    FormBox[
+    "\"\\!\\(\\*SubscriptBox[\\(z\\), \\(17\\)]\\)\"", TraditionalForm]},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  ImageSize->{456.7124999999997, Automatic},
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0, 3.5}, {0, 1.7}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.7345077409544163`*^9, {3.734507781205138*^9, 3.734507798491815*^9}, 
+   3.734507851670505*^9, 3.734507901396635*^9, {3.735045846616075*^9, 
+   3.735045896774778*^9}},
+ CellLabel->
+  "Out[647]=",ExpressionUUID->"2218f090-b272-44cb-baab-9c5134aa2f17"],
+
+Cell[TextData[{
+ "Under constant selection, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"log", "[", 
+    RowBox[{"p", "/", "q"}], "]"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "7f88e9c8-e3f2-4129-9f73-51c583bf7ddb"],
+ " changes linearly with time, at a rate equal to the selection coefficient, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"s", "."}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "d3edffcd-a4d0-4cec-a9d8-d7ff950efeaf"],
+ "  Therefore, a naive estimate of selection is given by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["s", "^"], "=", 
+    RowBox[{
+     FractionBox["1", "T"], 
+     RowBox[{"log", "[", 
+      RowBox[{
+       FractionBox[
+        SubscriptBox["p", "17"], 
+        SubscriptBox["q", "17"]], 
+       FractionBox[
+        SubscriptBox["q", "0"], 
+        SubscriptBox["p", "0"]]}], "]"}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "2391ea1f-69e9-490e-b14c-3471ea2c9a31"],
+ "; thus, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     OverscriptBox["s", "^"], "=", 
+     RowBox[{"-", "0.187"}]}], ",", " ", 
+    RowBox[{"-", "0.323"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "9efe206c-3fb2-464b-9397-8c84dc2a24a6"],
+ " for LS1, LS2, and averages -0.255.  Here, males and females with longest \
+legs are chosen to breed; the strength of selection on an additive allele \
+depends on the fraction selected and the within-family trait variance.  The \
+former is kept constant, and there is little loss of variance due to \
+inbreeding ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"F", "~", "0.17"}], ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "9ca2778a-45e6-4d01-b46e-f0b86fad6634"],
+ ", and so assuming constant selection is reasonable, unless there is strong \
+dominance."
+}], "Text",
+ CellChangeTimes->{{3.740650768654455*^9, 3.7406509609925623`*^9}, {
+  3.740651822000651*^9, 3.7406520518568583`*^9}, {3.740652798538933*^9, 
+  3.7406528013162403`*^9}},ExpressionUUID->"bffc8666-38b4-4026-978d-\
+47efed274ec0"],
+
+Cell[TextData[{
+ "To set bounds on this estimate, we must account for random drift.  The \
+predicted loss of diversity over 17 generations, based on the pedigree, is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"F", "=", "0.173"}], ",", "0.175"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "0a51775a-30e5-4c2b-8221-aff3ba97e315"],
+ " for LS1, LS2, which corresponds to an effective size ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["N", "e"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "00572caf-29b3-48ad-8a81-a0f680b2f587"],
+ "=44.9, 44.4, respectively.  Therefore, we calculate the matrix of \
+transition probabilities for a Wright-Fisher population with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"2", "N"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "6459ac7b-814f-414b-9c88-64a4cfa20e4c"],
+ " rounded to 90, 89 copies for LS1, LS2, over a range of selection, ",
+ Cell[BoxData[
+  FormBox["s", TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "5c7a9ff8-d3b8-43a6-95c7-9baa7d6281a4"],
+ ".  This yields the probability that the number of copies would change from \
+the rounded values of 74/90 to 15/90 in LS1, and from 75/89 to 2/89 in LS2 - \
+that is, the likelihood of ",
+ Cell[BoxData[
+  FormBox["s", TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "a3eaaaba-73d0-4c40-810f-d1fa8dc32000"],
+ ", given the  observed changes in allele frequency, and the known ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["N", "e"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "a49221ca-7637-4813-984f-86676ecdbd5d"],
+ ".  There is no significant loss of likelihood by assuming the same \
+selection in both lines; overall, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["s", "^"], 
+    FormBox[
+     RowBox[{"=", 
+      RowBox[{"-", "0.24"}]}],
+     TraditionalForm]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "01544e66-cd14-4954-b56f-dfd7901bcc51"],
+ ", with 2-unit support limits -0.36 to -0.13."
+}], "Text",
+ CellChangeTimes->{{3.740652054775936*^9, 3.740652075487454*^9}, {
+  3.74065278625205*^9, 3.740652791170394*^9}, {3.740652830668068*^9, 
+  3.740653163265987*^9}, {3.740653309491802*^9, 3.740653331827949*^9}, {
+  3.740653960330031*^9, 
+  3.740654076710458*^9}},ExpressionUUID->"68ef263b-63b4-43dd-a31e-\
+bbf409caccb4"],
+
+Cell[TextData[{
+ "Figure Sx. The log likelihood of the selection coefficient, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"s", ","}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "171cd40c-f89a-48c6-813c-c4c7aad25cc7"],
+ " for LS1, LS2 (blue, black), based on transition probabilities for a \
+Wright-Fisher population with the appropriate ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["N", "e"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "4d8c0ffb-da2c-4eb8-803f-96080e782b45"],
+ ". The red line shows a loss of log likelihood of 2 units, which sets \
+conventional 2-unit support limits.  "
+}], "Text",
+ CellChangeTimes->{{3.740653176815894*^9, 3.7406533062595367`*^9}},
+ FontSize->14,ExpressionUUID->"82728873-b124-4bbd-8aad-90bfc21b81fd"],
+
+Cell[BoxData[
+ GraphicsBox[{{{}, {}, 
+    TagBox[
+     {RGBColor[0, 0, 1], AbsoluteThickness[1.6], Opacity[1.], 
+      LineBox[CompressedData["
+1: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
+       "]]},
+     Annotation[#, "Charting`Private`Tag$33373#1"]& ], 
+    TagBox[
+     {GrayLevel[0], AbsoluteThickness[1.6], Opacity[1.], 
+      LineBox[CompressedData["
+1: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
+R4yi42AjFL6xgvjP/r/EKf8DRLbd8A==
+       "]]},
+     Annotation[#, "Charting`Private`Tag$33373#2"]& ], 
+    TagBox[
+     {RGBColor[1, 0, 0], AbsoluteThickness[1.6], Opacity[1.], 
+      LineBox[CompressedData["
+1:eJxTTMoPSmViYGAwAWIQre62QMfY+PF+Bgg4MGPF3mdfmRB8Lu7bC3ZcegTn
+L+thnqyQheBffdP+powDwfdXeLdl+4qHcH6TgNPvWw4Ivuf9jyve3H8A55/M
+6r/yoAzBn3KSL38/P4L/jPfKQ4n4+3C+GFPaw/K+e3B+7ub16zefvgvnR3Hv
+jT7Cg+DvvLOUeZbtHTjfPtutyqfmNpxvXnzozeFVt+D8o4pMtgJ3b8L5Vb0/
+oy1lEfyFRWfK1H1vwPkfRMITPnVdh/M3Gux1bdpxDc5n//yM4/nLq3B+a9GJ
+WRqaCH5pdquGfsQVOL9H8VeL0NTLcL5lndH+U1cvwfkRIW5f3dkQ/HnPBX8t
+dLkI54d92fHrQNEFON/N331Tpud5OF/foIeH++RZOP8Pc0ecmcYZOF8i6LOv
+9OJTcH7826c/VqqehPO7qvtnH2o/DueztKy4PYX1GJyfVF8h/DHpCJzP/3X7
+C7Y7h+D859vrKo/FHITz3W//YFao2g/nx1lf9lcr2gPn2zZKdzto7oTzixKL
+bNe93wrnu5qt0Op/uwnO3/9wOh9H6Ho438Bhru0N25Vwvt/l/VH+rovh/O/J
+NWvvTJ2JSH/PXyqe/9uFiC+tpccu/K2C8z/fF9Pf4u21D8YHAJa3FGw=
+       "]]},
+     Annotation[#, "Charting`Private`Tag$33373#3"]& ]}, {}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"s\"", TraditionalForm], 
+    FormBox["\"log(L)\"", TraditionalForm]},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, 
+     Charting`ScaledFrameTicks[{Identity, Identity}]}, {Automatic, 
+     Charting`ScaledFrameTicks[{Identity, Identity}]}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  Method->{
+   "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "ScalingFunctions" -> None, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{-0.6, 0}, {-5, 0}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{0, 0}, {0, 0}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{{3.740556899170321*^9, 3.740556919041004*^9}, {
+  3.74055695321375*^9, 3.74055698747654*^9}},
+ CellLabel->
+  "Out[657]=",ExpressionUUID->"8d0c30a5-3c51-45d5-81fa-d4eb526461b1"],
+
+Cell[TextData[{
+ "These estimates do not account for selection on linked loci, and do not \
+give the effect on the composite trait.   We therefore simulated conditional \
+on the pedigree and on the actual selection regime, as described above, but \
+including an additive allele with effect ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "94fa1b6a-3b94-4886-99f0-416ba2afd181"],
+ " at the candidate locus on chromosome 5.  The genetic variance associated \
+with the unlinked infinitesimal background, and across chromosome 5, were \
+reduced in proportion, to keep the overall heritability the same as before ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["V", "a"], "/", 
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["V", "a"], "+", 
+         SubscriptBox["V", "e"]}], ")"}]}], "=", "0.539"}], ")"}], "."}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "693b90b1-66a6-4140-b1bb-29057540eda2"],
+ "  The selection coefficient inferred from the simulated changes in allele \
+frequency was approximately proportional to the effect on the trait, with \
+best fit ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"s", "=", 
+    RowBox[{"0.41", 
+     RowBox[{"A", "/", 
+      SqrtBox[
+       SubscriptBox["V", "e"]]}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "20e319e7-b6e7-4f87-88df-d0600e875a83"],
+ " (Fig. Sx, left).  Assuming this relationship, we can compare the mean and \
+standard deviation of allele frequency from simulations with linked \
+selection, with that predicted by the single locus Wright-Fisher model \
+(points vs. line in Fig. Sx, middle & right). These agree well, showing that \
+linked selection does not appreciably change the distribution of allele \
+frequencies at a single locus.  This is consistent with Fig. xx, which shows \
+that linked selection only inflates the tail of the allele frequency \
+distribution, an effect that would not be detectable  at a single locus."
+}], "Text",
+ CellChangeTimes->{{3.740654093884444*^9, 3.740654302426217*^9}, {
+  3.7406543415225286`*^9, 3.740654349224599*^9}, {3.740656693787156*^9, 
+  3.740657051731125*^9}, {3.740657084711739*^9, 
+  3.740657170056459*^9}},ExpressionUUID->"feed3cf6-5928-4ff0-84ea-\
+1e8c0bf66d87"],
+
+Cell[TextData[{
+ "Figure Sx. Simulations of an additive allele with effect ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "de20df6a-796f-47ec-ba67-592e65d8a2cb"],
+ " on the trait; 40 replicates for each value of ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "a231d5a0-6ecf-4a7c-8c9b-1b705b2a88f6"],
+ ". Left: The selection coefficient, estimated from the change in mean allele \
+frequency, as a function of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "/", 
+    SqrtBox[
+     SubscriptBox["V", "e"]]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "e7a3557c-08b5-4a49-9332-b48c4e71afcc"],
+ "; the line shows the least-squares fit ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"s", "=", 
+    RowBox[{"0.41", 
+     RowBox[{"A", "/", 
+      SqrtBox[
+       SubscriptBox["V", "e"]]}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "e2f3d736-5926-4519-9dc4-21e60b85c781"],
+ " . Middle: dots show the mean allele frequency at generation 17; the red \
+line shows the prediction from the single-locus Wright-Fisher model, given ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"s", "=", 
+    RowBox[{"0.41", 
+     RowBox[{"A", "/", 
+      SqrtBox[
+       SubscriptBox["V", "e"]]}]}]}], TraditionalForm]],ExpressionUUID->
+  "3fd1db2c-5f6b-4d28-ac6a-2bab77c091d4"],
+ ". Right: the same, but for the standard deviation of allele frequency."
+}], "Text",
+ CellChangeTimes->{{3.740654525735072*^9, 3.740654824654566*^9}},
+ FontSize->14,ExpressionUUID->"cd3d4303-240b-4370-bcbe-75a8818ceca4"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {InsetBox[
+     GraphicsBox[{{{{}, {}, 
+         TagBox[
+          {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], 
+           Opacity[1.], LineBox[CompressedData["
+1:eJwVxWdQEwYABlBEwFFBZkBtEEFERMSqxFGGaBzU0rIOlBWsShHKMmJZEVFR
+GRGQPQTD0DJlKKPUfAiBGGWFBEWRsEdYSuSIg+Ta/nj3tvwWYH9BVkZGxuY/
+/z9U3ZuYmSlE+NPIkGERH1/TrFampwtBMFb0NlvgQz28PDglVYiqwizn9A98
+nDwa7ZKQJMRk8lOSzSwflbx9W6NjhHC4NLNYP85H1GJyXWCoEDtNnIMS+/jQ
+JdkLTpwR4v1fu3wsmXycb+g0WtISwiJnwPV+DB8xjXKsa/QpnLCOunlVkw/q
+BOVH6++mUHGqpepDGQ+aRlPZeXGT0ODs/vInmQc33/Iveism0bJuLFqf1wMv
+fjppInICXUWmmucu9kDlIAJffxqHjnzHXOsSF8F1aimOPuO4NJggsLzFRa4H
+PU15egxb1i/wrIlceK8gp331GIOmfIZSaGk3xO2bg3UHRuFjO2BzwKobh6u3
+m/e5jyLcOOcXYnUXdiT7y/7DG0Hl8TXx6t2deJvz9uGA/Qhy19b0GEk6YJgf
+ddKYPYyNrlMFdK0O7HnuxFtrMYx0xuVi4oF2yKyxM9/GHELHPfP6Dq9XCPj5
+TmHA3iEkKd+ze3HjJU4EcXrnzg1i/UG9xZHHHCwcXnY7fUqAjfOWW06+fAEl
+ckytYP8ADDJrrvdPsVGb4dk5RHqP+flzc3cJbDwYqxqy0OnHEW7eSPyeNqhf
+t6nS+v4dbD20hkvcW/HV/qijEvEtKMOTauJ4FvQ21SxQVvdh+eMRLr2kBb37
+/GyMFd7AvvRdOvlNMzjHGAVO870wFUmmjomeY3esSXt2Px8bTUL8g1WeQ1dn
+dY1bPw8NBBMJy7IJTuUuKaGtPWjXGN3JrGdCPV68V7WZiyyH4aA9ys9Azp0v
+amvphjeNvnllYCP8fsXWCkoX7JpsR7zLGuAlTwprc+vA49P0OqVV9RgrfsBK
+2/UK29cOM6wtanFlIS/OQ58DDZWKXFbyE8zmOYjdt7GxUs5QLmehGpNm35w1
+lllYp9x4dfXOKixF7DdlLTVDdTRe02fNY8SW/r7KqK0J5D6u6xy1FPLXM5bv
+WT5DSNGlIMMPj6D9KXaUadaAZKJC2fjDQlhZXXjiMvoEE2y2crsmA/G93lfH
+eZWwOvR534XYbBwOKNFDVTEaU7RmChRSETFnr52sxMDxRztm/KbjoPIxmxAr
+TYIfY8DAkEpDBbVAlFCbBEtPn1g3SQROiUs6U/2ToLpZPJtwOwLR0oZbDEEi
+6nKUq5eyw7GwoXIuiJaAFRlHzVisUDQ5bK/oksQi9W6xLYVwBe5sLZM4aRTC
+xNOiHVQ/pHUaTKb5R0E7WK4+6fYf6O4l5eULrqFFRKR9zvbFnRfF2pdpkVCc
+t13VxroIZ1ndQa4kDPljtZvOErywGKzqSZcGIblAPmYX1R3eN3d3FwoCIcg9
+oLac7Ypa/fvXQmgBMMjyvc9hnUE0RcPqtcQHjYncqvMEJ+jy5JuTpGfR+u3Q
+U1OqDdSGbpCjaBScET3gdLOsMbJhWW5Q4oL5KQWBL+E4Iumz0VlSOxiVFSmS
+qebIucuJ/yj5CY6ZQaQwAgkHZf9WLJNaQbwunOlJNUb5jCOxS/oDEjr1dbKo
+RORPN1zuuG3HZOOVZ2+lGfNf1S60HQ==
+            "]]},
+          
+          Annotation[#, 
+           "Charting`Private`Tag$15761537#1"]& ]}, {}, {}}, {{}, {{}, 
+         {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.02], 
+          AbsoluteThickness[1.6], 
+          PointBox[{{-0.8, -0.38587469054950385`}, {-0.7000000000000001, \
+-0.2554695648269778}, {-0.6000000000000001, -0.21536537990106583`}, {-0.5, \
+-0.1904930747968171}, {-0.4, -0.1573973038988192}, {-0.30000000000000004`, \
+-0.12599753926813728`}, {-0.19999999999999996`, -0.08835134690594122}, \
+{-0.09999999999999998, -0.04254224906607642}, {
+           0., -0.013411734032766465`}}]}, {}}, {}, {}, {}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{
+        FormBox[
+        "\"A/\\!\\(\\*SqrtBox[SubscriptBox[\\(V\\), \\(e\\)]]\\)\"", 
+         TraditionalForm], 
+        FormBox["\"s\"", TraditionalForm]},
+      AxesOrigin->{0, 0},
+      DisplayFunction->Identity,
+      Frame->{{False, False}, {False, False}},
+      FrameLabel->{{None, None}, {None, None}},
+      FrameTicks->{{Automatic, 
+         Charting`ScaledFrameTicks[{Identity, Identity}]}, {Automatic, 
+         Charting`ScaledFrameTicks[{Identity, Identity}]}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImagePadding->All,
+      Method->{
+       "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+        AbsolutePointSize[6], "ScalingFunctions" -> None, 
+        "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+            (Identity[#]& )[
+             Part[#, 1]], 
+            (Identity[#]& )[
+             Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+            (Identity[#]& )[
+             Part[#, 1]], 
+            (Identity[#]& )[
+             Part[#, 2]]}& )}},
+      PlotRange->{{-0.8, 0}, {-0.3273242642161091, 0.}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {
+         Scaled[0.05], 
+         Scaled[0.05]}},
+      Ticks->{Automatic, Automatic}], {193.5, -116.80842387373012}, 
+     ImageScaled[{0.5, 0.5}], {360., 222.49223594996212}], InsetBox[
+     GraphicsBox[{{{}, {{}, 
+         {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.02], 
+          AbsoluteThickness[1.6], 
+          PointBox[{{-0.8, 0.006640625}, {-0.7000000000000001, 
+           0.0578125}, {-0.6000000000000001, 0.108203125}, {-0.5, 
+           0.15625}, {-0.4, 0.2453125}, {-0.30000000000000004`, 
+           0.356640625}, {-0.19999999999999996`, 
+           0.5125}, {-0.09999999999999998, 0.69609375}, {0., 
+           0.78984375}}]}, {}}, {}, {}, {}, {}}, {{}, {{}, {}, 
+         {RGBColor[1, 0, 0], PointSize[
+           NCache[
+            Rational[7, 360], 0.019444444444444445`]], AbsoluteThickness[1.6],
+           LineBox[{{-0.8, 0.023811363304383378`}, {-0.7000000000000001, 
+           0.04713980671970948}, {-0.6000000000000001, 
+           0.09027308619787681}, {-0.5, 0.16341865782328388`}, {-0.4, 
+           0.27320625420409017`}, {-0.30000000000000004`, 
+           0.41485503303255733`}, {-0.19999999999999996`, 
+           0.5692838373722233}, {-0.09999999999999998, 0.7111584035225395}, {
+           0., 0.822231775964351}}]}}, {}, {}, {}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{
+        FormBox["\"A\"", TraditionalForm], 
+        FormBox[
+        "\"\\!\\(\\*OverscriptBox[SubscriptBox[\\(p\\), \\(17\\)], \
+\\(_\\)]\\)\"", TraditionalForm]},
+      AxesOrigin->{0, 0},
+      DisplayFunction->Identity,
+      Frame->{{False, False}, {False, False}},
+      FrameLabel->{{None, None}, {None, None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImagePadding->All,
+      Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+            (Identity[#]& )[
+             Part[#, 1]], 
+            (Identity[#]& )[
+             Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+            (Identity[#]& )[
+             Part[#, 1]], 
+            (Identity[#]& )[
+             Part[#, 2]]}& )}},
+      PlotRange->{{-0.8, 0}, {0, 0.78984375}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {
+         Scaled[0.02], 
+         Scaled[0.05]}},
+      Ticks->{Automatic, Automatic}], {580.5, -116.80842387373012}, 
+     ImageScaled[{0.5, 0.5}], {360., 222.49223594996212}], InsetBox[
+     GraphicsBox[{{{}, {{}, 
+         {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.02], 
+          AbsoluteThickness[1.6], 
+          PointBox[{{-0.8, 0.017293705954045824`}, {-0.7000000000000001, 
+           0.07183841041906802}, {-0.6000000000000001, 
+           0.12115415418598917`}, {-0.5, 0.14157885193100897`}, {-0.4, 
+           0.2178093327860814}, {-0.30000000000000004`, 
+           0.2044883824271596}, {-0.19999999999999996`, 
+           0.19316365993434367`}, {-0.09999999999999998, 
+           0.2013124878103627}, {0., 
+           0.17159979423942448`}}]}, {}}, {}, {}, {}, {}}, {{}, {{}, {}, 
+         {RGBColor[1, 0, 0], PointSize[
+           NCache[
+            Rational[7, 360], 0.019444444444444445`]], AbsoluteThickness[1.6],
+           LineBox[{{-0.8, 0.03748976807010428}, {-0.7000000000000001, 
+           0.06112460675970064}, {-0.6000000000000001, 
+           0.09715966076160269}, {-0.5, 0.14395565571202684`}, {-0.4, 
+           0.19153220703905277`}, {-0.30000000000000004`, 
+           0.22352768319409627`}, {-0.19999999999999996`, 
+           0.22686257536958454`}, {-0.09999999999999998, 
+           0.2013271116147525}, {0., 0.159010169332561}}]}}, {}, {}, {}, {}}},
+      
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{
+        FormBox["\"A\"", TraditionalForm], 
+        FormBox[
+        "\"sd(\\!\\(\\*SubscriptBox[\\(p\\), \\(17\\)]\\))\"", 
+         TraditionalForm]},
+      AxesOrigin->{0, 0},
+      DisplayFunction->Identity,
+      Frame->{{False, False}, {False, False}},
+      FrameLabel->{{None, None}, {None, None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImagePadding->All,
+      Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+            (Identity[#]& )[
+             Part[#, 1]], 
+            (Identity[#]& )[
+             Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+            (Identity[#]& )[
+             Part[#, 1]], 
+            (Identity[#]& )[
+             Part[#, 2]]}& )}},
+      PlotRange->{{-0.8, 0}, {0, 0.2178093327860814}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {
+         Scaled[0.02], 
+         Scaled[0.05]}},
+      Ticks->{Automatic, Automatic}], {967.5, -116.80842387373012}, 
+     ImageScaled[{0.5, 0.5}], {360., 222.49223594996212}]}, {}},
+  ContentSelectable->True,
+  ImageSize->{673.8031249999995, Automatic},
+  PlotRangePadding->{6, 5}]], "Output",
+ CellChangeTimes->{{3.740633475305834*^9, 3.740633505253228*^9}, 
+   3.740633693355976*^9, {3.740654398350094*^9, 3.7406544372310123`*^9}, {
+   3.740654477622176*^9, 3.740654507695541*^9}, 3.7406547149878263`*^9},
+ CellLabel->
+  "Out[845]=",ExpressionUUID->"9ccdd208-57bd-42f4-89e7-bd1d5f1909c2"],
+
+Cell[TextData[{
+ "Combining our estimates of  the selection coefficient with the relation ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"s", "=", 
+    RowBox[{"0.41", 
+     RowBox[{"A", "/", 
+      SqrtBox[
+       SubscriptBox["V", "e"]]}]}]}], TraditionalForm]],ExpressionUUID->
+  "3ad1b005-4e75-4532-8b81-266503930d38"],
+ ", we estimate that the locus on chromosome 5 has effect ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["A", "^"], "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "5be04803-82d0-4b55-9a4d-f783b7754e63"],
+ " -0.59",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    SubscriptBox["V", "e"]], TraditionalForm]],ExpressionUUID->
+  "9b6fe67b-412a-4956-935a-3adcb82c1472"],
+ ", with 2-unit support limits -0.87",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    SubscriptBox["V", "e"]], TraditionalForm]],ExpressionUUID->
+  "84173add-62d3-4b3b-9516-3255cd108f73"],
+ " to -0.32",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    SubscriptBox["V", "e"]], TraditionalForm]],ExpressionUUID->
+  "6bba4912-d188-43e9-bc0a-5e6820e4a0b8"],
+ ".   This single locus is responsible for ~ 9.4% of  the total selection \
+response (limits 3.6% - 15.5%)."
+}], "Text",
+ CellChangeTimes->{{3.740657201308741*^9, 3.740657274618034*^9}, {
+  3.74065733044783*^9, 3.740657331183996*^9}, {3.7406574026781*^9, 
+  3.740657452069758*^9}, {3.740658125626483*^9, 3.740658125816248*^9}, {
+  3.7406654348865232`*^9, 3.7406654880028133`*^9}, {3.740665524475017*^9, 
+  3.740665581320025*^9}, {3.740665743228281*^9, 
+  3.740665756954262*^9}},ExpressionUUID->"94177886-1d78-46c6-bc53-\
+bb249faf28bf"],
+
+Cell["\<\
+This analysis does not allow for the inflation of effect that might arise \
+from multiple testing.  This is hard to estimate, because it depends on the \
+distribution of effects across the genome, and also on the excess variation \
+in estimates due to linkage disequilibrium in the founder population.  \
+However, we note that if the effect of this locus is large enough that it \
+would certainly be detected in this study, then there is no estimation bias \
+from this source.\
+\>", "Text",
+ CellChangeTimes->{{3.7406574584208*^9, 
+  3.7406576575743093`*^9}},ExpressionUUID->"27a1c87a-53ce-4c4f-8575-\
+abc6e6392f24"],
+
+Cell["\<\
+We also assume that there are two haplotypes, each with a definite effect.  \
+There might in fact be heterogeneity in the effects of each haplotype, for \
+two reasons. First, this region might have had heterogeneous effects in the \
+founder population, with multiple alleles at multiple causal loci. Second, as \
+recombination breaks up the founder genomes, blocks of genome would become \
+associated with different backgrounds.  To the extent that genetic variation \
+is spread evenly over an infinitesimal background, this latter effect is \
+accounted for by our simulations, and has little consequence. However, we \
+have not tested whether the data might be explained by more than two alleles, \
+possibly at more than one discrete locus.  Testing such complex models would \
+be challenging, and we do not believe that such test would have much power. \
+However, the estimates of selection made here should be regarded as effective \
+values that may reflect a more complex reality.\
+\>", "Text",
+ CellChangeTimes->{{3.740657663332828*^9, 3.740657808865704*^9}, {
+  3.740657880704959*^9, 
+  3.740658116514454*^9}},ExpressionUUID->"776c91bc-252d-475f-8ba6-\
+59d5e2a6e734"]
+},
+WindowSize->{1275, 1151},
+WindowMargins->{{189, Automatic}, {Automatic, 0}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 978, 15, 159, "Text",ExpressionUUID->"69e0cd4d-9ecf-4787-8048-08f651667101"],
+Cell[1539, 37, 1391, 30, 163, "Text",ExpressionUUID->"e5f16101-b6af-4232-a603-941be37ed8f1"],
+Cell[2933, 69, 909, 24, 45, "Text",ExpressionUUID->"f6e8589a-c13e-4e4d-99d7-01991cd097f7"],
+Cell[3845, 95, 5680, 114, 389, "Output",ExpressionUUID->"2218f090-b272-44cb-baab-9c5134aa2f17"],
+Cell[9528, 211, 2121, 58, 168, "Text",ExpressionUUID->"bffc8666-38b4-4026-978d-47efed274ec0"],
+Cell[11652, 271, 2412, 59, 188, "Text",ExpressionUUID->"68ef263b-63b4-43dd-a31e-bbf409caccb4"],
+Cell[14067, 332, 788, 18, 71, "Text",ExpressionUUID->"82728873-b124-4bbd-8aad-90bfc21b81fd"],
+Cell[14858, 352, 12108, 220, 313, "Output",ExpressionUUID->"8d0c30a5-3c51-45d5-81fa-d4eb526461b1"],
+Cell[26969, 574, 2359, 51, 285, "Text",ExpressionUUID->"feed3cf6-5928-4ff0-84ea-1e8c0bf66d87"],
+Cell[29331, 627, 1628, 43, 144, "Text",ExpressionUUID->"cd3d4303-240b-4370-bcbe-75a8818ceca4"],
+Cell[30962, 672, 9346, 201, 203, "Output",ExpressionUUID->"9ccdd208-57bd-42f4-89e7-bd1d5f1909c2"],
+Cell[40311, 875, 1597, 44, 121, "Text",ExpressionUUID->"94177886-1d78-46c6-bc53-bb249faf28bf"],
+Cell[41911, 921, 626, 11, 131, "Text",ExpressionUUID->"27a1c87a-53ce-4c4f-8575-abc6e6392f24"],
+Cell[42540, 934, 1183, 18, 217, "Text",ExpressionUUID->"776c91bc-252d-475f-8ba6-59d5e2a6e734"]
+}
+]
+*)
+
