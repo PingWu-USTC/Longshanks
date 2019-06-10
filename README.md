@@ -1,3 +1,5 @@
+### This code is associated with the paper from Castro et al., "An integrative genomic analysis of the longshanks selection experiment for longer limbs in mice". eLife, 2019. http://dx.doi.org/10.7554/eLife.42014
+
 # Longshanks
 We are currently in the process of cleaning up the code and putting them up as we work through them. Apologies in advance. 
 
